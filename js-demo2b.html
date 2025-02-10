@@ -1,82 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head>  
-<title>My Second Web Page</title>
+  <head>
+    <title>My Second Web Page</title>
 
-<link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="demo.css" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-       $("#btn").click(function(event){
+    <script>
+      $(document).ready(function () {
+        $("#btn").click(function (event) {
+          // Check if a table already exists. If so, remove it.
+          if ($("table").length > 0) {
+            $("table").remove();
+          }
 
-       });
-    });
- </script>
-</head> 	
-<body>
+          $.getJSON("data.json", function (data) {
+            // Add the table caption
+            let caption = $("<caption>" + data.title + "</caption>");
+            let table = $("<table></table>").append(caption); // Add caption to table
 
-<div id="container">
+            let headerRow = $("<tr></tr>");
+            headerRow.append("<th></th>");
+            headerRow.append("<th>" + data.head1 + "</th>");
+            headerRow.append("<th>" + data.head2 + "</th>");
+            headerRow.append("<th>" + data.head3 + "</th>");
+            headerRow.append("<th>" + data.head4 + "</th>");
+            table.append(headerRow);
 
-<header>My Web Site Brand</header>
-<nav>
-	<ul>
-    <li><a href="js-demo2.html">Home</a></li>
-    <li><a href="js-demo2b.html">About</a></li>
-    <li><a href="js-demo2d.html">Gallery</a></li>
-    <li><a href="js-demo2c.html">Contact</a></li>
-	</ul>
-</nav>
+            let caloriesRow = $("<tr></tr>");
+            caloriesRow.append("<td>" + data.subheadcal + "</td>");
+            caloriesRow.append("<td>" + data.cal1 + "</td>");
+            caloriesRow.append("<td>" + data.cal2 + "</td>");
+            caloriesRow.append("<td>" + data.cal3 + "</td>");
+            caloriesRow.append("<td>" + data.cal4 + "</td>");
+            table.append(caloriesRow);
 
-<main>
-  <h1>My Second Heading</h1>
-  <p>My Second paragraph.</p>
+            let fatRow = $("<tr></tr>");
+            fatRow.append("<td>" + data.subheadfat + "</td>");
+            fatRow.append("<td>" + data.fat1 + "</td>");
+            fatRow.append("<td>" + data.fat2 + "</td>");
+            fatRow.append("<td>" + data.fat3 + "</td>");
+            fatRow.append("<td>" + data.fat4 + "</td>");
+            table.append(fatRow);
 
-  <table>
-    <!--<caption></caption>
-    <thead>
-        <tr id="showheading">
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr id="showcalories">
-            <td></td>
-            <td></td> 
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="showfat">
-            <td></td>
-            <td></td> 
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr id="showven">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tfoot>-->
-    </table>
+            let vendorRow = $("<tr></tr>");
+            vendorRow.append("<td>" + data.subheadven + "</td>");
+            vendorRow.append("<td>" + data.ven1 + "</td>");
+            vendorRow.append("<td>" + data.ven2 + "</td>");
+            vendorRow.append("<td>" + data.ven3 + "</td>");
+            vendorRow.append("<td>" + data.ven4 + "</td>");
+            table.append(vendorRow);
 
-    <input type = "button" id = "btn" value = "Load Data" style="margin-top:20px;" />
-</main>
+            // Insert the table *before* the button.
+            $("#btn").before(table);
+          }).fail(function () {
+            alert("Error loading JSON data. Please try again.");
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <header>My Web Site Brand</header>
+      <nav>
+        <ul>
+          <li><a href="js-demo2.html">Home</a></li>
+          <li><a href="js-demo2b.html">About</a></li>
+          <li><a href="js-demo2d.html">Gallery</a></li>
+          <li><a href="js-demo2c.html">Contact</a></li>
+        </ul>
+      </nav>
 
-<footer>&copy; Copyright 2020</footer>
+      <main>
+        <h1>My Second Heading</h1>
+        <p>My Second paragraph.</p>
 
-</div>
+        <table>
+          <!-- <caption></caption>
+          <thead>
+            <tr id="showheading">
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="showcalories">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr id="showfat">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr id="showven">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot> -->
+        </table>
 
-</body>
+        <input
+          type="button"
+          id="btn"
+          value="Load Data"
+          style="margin-top: 20px"
+        />
+      </main>
+
+      <footer>&copy; Copyright 2020</footer>
+    </div>
+  </body>
 </html>
